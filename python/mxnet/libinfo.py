@@ -25,6 +25,8 @@ def find_lib_path():
         else:
             dll_path.append(os.path.join(curr_path, '../../build', vs_configuration))
             dll_path.append(os.path.join(curr_path, '../../windows', vs_configuration))
+    elif os.name == "posix" and os.environ.get('CONDA_ENV_PATH', None):
+        dll_path.append(os.path.join(os.environ['CONDA_ENV_PATH'], 'mxnet'))
     elif os.name == "posix" and os.environ.get('LD_LIBRARY_PATH', None):
         dll_path.extend([p.strip() for p in os.environ['LD_LIBRARY_PATH'].split(":")])
     if os.name == 'nt':
